@@ -61,10 +61,15 @@ h3 {
 }
 
 
-#textHolder, #textTransition{
+#textHolder, #restaurantButton{
 	position:absolute;
 	font-size: 30px;
 	color:white;
 	margin-left:10px;
 	z-index: 120;
+}
+
+#textTransition {
+	margin-top:10%;
+	margin-bottom: auto;
 }

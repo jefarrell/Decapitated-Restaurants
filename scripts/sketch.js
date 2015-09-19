@@ -94,7 +94,8 @@ function NearestAnimal(latitude,longitude){
 
   // Function to draw line, reframe map 
   mapFunctions(closelat,closelon);
-  textResult(mindif,closeAnimal);
+
+  textResult(mindif,closeAnimal, latitude,longitude);
 }
 
 function mapFunctions(animalLat,animalLon){
@@ -107,30 +108,36 @@ function mapFunctions(animalLat,animalLon){
   });
   polyline.addTo(map);
   map.fitBounds(polyline.getBounds());
-
-  // Call some text shit here?
-
 }
 
 
 
-function textResult(distance,animal){
+function textResult(distance,animal,lat,lon){
   var searchTerm = animalParse(animal);
   
   var soClose = "It seems you're only about "+Math.round(distance*10)/10+" miles from the nearest reported animal decapitation.  ";
   var whatWasIt = "That animal was a " + searchTerm.toLowerCase()+".  ";
   var yum = searchTerm + " sounds pretty good right now huh?  Yeahhhh it does...";
-  // $("#textHolder").append(soClose);
-  // $("#textHolder").append(whatWasIt);
-  // $("#textTransition").append(yum);
-  $('<p/>', { html: "It seems you're only about" +Math.round(distance*10)/10+" miles from the nearest reported animal decapitation.  <br /> That animal was a " + searchTerm.toLowerCase()+"."}).appendTo("#textHolder");
-  createFrame(closelat,closelon,searchTerm); 
+
+  $('<p/>', { html: "It seems you're only about " +Math.round(distance*10)/10+" miles from the nearest reported animal decapitation.  <br />That animal was a " + searchTerm.toLowerCase()+".  <br />Doesn't that make you hungry?  Yeah?  Yeah."}).appendTo("#textHolder");
+  var $input = $('<input type="button" value="Yeahhhh"/>');
+  $input.appendTo("#restaurantButton");
+
+  $("#restaurantButton").click(function(){
+    search = searchTerm.replace(/ /g,'%20');
+    var searchURL = "https://www.seamless.com/search?orderMethod=delivery&locationMode=DELIVERY&facetSet=umami&pageSize=20&queryText="+search+"&latitude="+lat+"&longitude="+lon+"&facet=open_now:true&countOmittingTimes";
+    window.location.replace(searchURL);
+    console.log("clicked");
+  });
 }
 
 function createFrame(lat,lon,search){
   search = search.replace(/ /g,'%20');
   var searchURL = "https://www.seamless.com/search?orderMethod=delivery&locationMode=DELIVERY&facetSet=umami&pageSize=20&queryText="+search+"&latitude="+lat+"&longitude="+lon+"&facet=open_now:true&countOmittingTimes";
   //window.location.replace(searchURL);
+  console.log("clicked");
+  
+  
 }
 
 
