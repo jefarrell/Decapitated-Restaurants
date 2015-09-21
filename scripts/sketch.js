@@ -39,7 +39,17 @@ function locatePush(myObject) {
   for (f = 0; f < myObject.length; f++){
     locations.push({"animal":myObject[f].animal,"lat":myObject[f].lat,"lng":myObject[f].lng});
   }
-  navigator.geolocation.getCurrentPosition(UserLocation);
+  //navigator.geolocation.getCurrentPosition(UserLocation);
+  navigator.geolocation.getCurrentPosition(function(position){
+      userLat = position.coords.latitude;
+      userLon = position.coords.longitude;
+  
+      var userPoints = new L.LatLng(userLat,userLon);
+      pointList.push(userPoints);
+
+      var marker = L.marker([userLat,userLon]).addTo(map);
+      NearestAnimal(userLat,userLon);
+  });
 }
 
 
@@ -49,7 +59,7 @@ function UserLocation(position){
   userLat = position.coords.latitude;
   userLon = position.coords.longitude;
   
-  var userPoints = new L.LatLng(userLat,userLon);
+  var userPoints = new L.LatLng(  userLat,userLon);
   pointList.push(userPoints);
 
   var marker = L.marker([userLat,userLon]).addTo(map);
@@ -94,8 +104,7 @@ function NearestAnimal(latitude,longitude){
 
   // Function to draw line, reframe map 
   mapFunctions(closelat,closelon);
-
-  textResult(mindif,closeAnimal, latitude,longitude);
+  textResult(mindif,closeAnimal,latitude,longitude);
 }
 
 function mapFunctions(animalLat,animalLon){
