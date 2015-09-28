@@ -1,0 +1,74 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/local/bin/node',
+1 verbose cli   '/usr/local/bin/npm',
+1 verbose cli   'install',
+1 verbose cli   'cookie-parse',
+1 verbose cli   '--save' ]
+2 info using npm@1.4.28
+3 info using node@v0.10.35
+4 warn package.json DecapitatedRestaurants@1.0.0 No repository field.
+5 warn package.json DecapitatedRestaurants@1.0.0 No README data
+6 verbose readDependencies using package.json deps
+7 verbose cache add [ 'cookie-parse', null ]
+8 verbose cache add name=undefined spec="cookie-parse" args=["cookie-parse",null]
+9 verbose parsed url { protocol: null,
+9 verbose parsed url   slashes: null,
+9 verbose parsed url   auth: null,
+9 verbose parsed url   host: null,
+9 verbose parsed url   port: null,
+9 verbose parsed url   hostname: null,
+9 verbose parsed url   hash: null,
+9 verbose parsed url   search: null,
+9 verbose parsed url   query: null,
+9 verbose parsed url   pathname: 'cookie-parse',
+9 verbose parsed url   path: 'cookie-parse',
+9 verbose parsed url   href: 'cookie-parse' }
+10 silly lockFile bffb95b1-cookie-parse cookie-parse
+11 verbose lock cookie-parse /Users/johnfarrell/.npm/bffb95b1-cookie-parse.lock
+12 silly lockFile bffb95b1-cookie-parse cookie-parse
+13 silly lockFile bffb95b1-cookie-parse cookie-parse
+14 verbose addNamed [ 'cookie-parse', '' ]
+15 verbose addNamed [ null, '*' ]
+16 silly lockFile 4b157faa-cookie-parse cookie-parse@
+17 verbose lock cookie-parse@ /Users/johnfarrell/.npm/4b157faa-cookie-parse.lock
+18 silly addNameRange { name: 'cookie-parse', range: '*', hasData: false }
+19 verbose request where is /cookie-parse
+20 verbose request registry https://registry.npmjs.org/
+21 verbose request id 85b4f7043beb6861
+22 verbose url raw /cookie-parse
+23 verbose url resolving [ 'https://registry.npmjs.org/', './cookie-parse' ]
+24 verbose url resolved https://registry.npmjs.org/cookie-parse
+25 verbose request where is https://registry.npmjs.org/cookie-parse
+26 info trying registry request attempt 1 at 18:09:41
+27 http GET https://registry.npmjs.org/cookie-parse
+28 http 404 https://registry.npmjs.org/cookie-parse
+29 silly registry.get cb [ 404,
+29 silly registry.get   { 'content-type': 'application/json',
+29 silly registry.get     'cache-control': 'max-age=0',
+29 silly registry.get     'content-length': '2',
+29 silly registry.get     'accept-ranges': 'bytes',
+29 silly registry.get     date: 'Mon, 28 Sep 2015 22:09:42 GMT',
+29 silly registry.get     via: '1.1 varnish',
+29 silly registry.get     age: '0',
+29 silly registry.get     connection: 'keep-alive',
+29 silly registry.get     'x-served-by': 'cache-jfk1024-JFK',
+29 silly registry.get     'x-cache': 'MISS',
+29 silly registry.get     'x-cache-hits': '0',
+29 silly registry.get     'x-timer': 'S1443478182.404670,VS0,VE354' } ]
+30 silly lockFile 4b157faa-cookie-parse cookie-parse@
+31 silly lockFile 4b157faa-cookie-parse cookie-parse@
+32 error 404 Not Found
+32 error 404
+32 error 404 'cookie-parse' is not in the npm registry.
+32 error 404 You should bug the author to publish it
+32 error 404 It was specified as a dependency of 'DecapitatedRestaurants'
+32 error 404
+32 error 404 Note that you can also install from a
+32 error 404 tarball, folder, or http url, or git url.
+33 error System Darwin 14.3.0
+34 error command "/usr/local/bin/node" "/usr/local/bin/npm" "install" "cookie-parse" "--save"
+35 error cwd /Volumes/Macintosh HD/Users/johnfarrell/Documents/ITP/Residency/Random/decapitatedAnimals/restaurantRec
+36 error node -v v0.10.35
+37 error npm -v 1.4.28
+38 error code E404
+39 verbose exit [ 1, true ]
