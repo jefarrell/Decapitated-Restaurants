@@ -1,8 +1,7 @@
 var map = L.map('map',{ zoomControl:false}).setView([40.7236922,-73.9889142], 10);
 var dot = L.icon({
-  iconUrl: 'images/dot.png',
-  iconSize: [8,8],
-  iconAnchor: [0,0],
+  iconUrl: 'images/goatHead.png',
+  iconSize: [90,90],
   popupAnchor: [5,5]
 });
 
@@ -30,7 +29,6 @@ $("#okbutton").click(function(){
     var data = $.getJSON(dataUrl).done(function(response){  
       locatePush(response);
     });
-
   $("#goat").removeClass("blurclass", "slow");
   $("#goat, .fadetext").fadeOut(3000);
   });
@@ -50,6 +48,7 @@ function locatePush(myObject) {
       var userPoints = new L.LatLng(userLat,userLon);
       pointList.push(userPoints);
       var marker = L.marker([userLat,userLon]).addTo(map);
+      marker.bindPopup("Where you sit.");
 
       NearestAnimal(userLat,userLon);
   });
@@ -87,16 +86,15 @@ function NearestAnimal(latitude,longitude){
       mindif=dif;
     } 
   }
-  //console.log("distance: " + mindif + "lat/lon: " + closelat + " " + closelon + ", animal: " + closeAnimal);
 
-
-  // Function to draw line, reframe map, generate text 
-  mapFunctions(closelat,closelon);
+  // Draw line, reframe map, generate text 
+  mapFunctions(closelat,closelon, closeAnimal);
   textResult(mindif,closeAnimal,latitude,longitude);
 }
 
-function mapFunctions(animalLat,animalLon){
+function mapFunctions(animalLat,animalLon,animal){
   var animalMarker = L.marker([animalLat,animalLon], {icon:dot}).addTo(map);
+  animalMarker.bindPopup("Where a "+animal.toLowerCase()+" was slaughtered.");
   var animalPoints = new L.LatLng(animalLat,animalLon);
   pointList.push(animalPoints);
   var polyline = new L.polyline(pointList,{
@@ -108,14 +106,13 @@ function mapFunctions(animalLat,animalLon){
 }
 
 
-
 function textResult(distance,animal,lat,lon) {
   if (animal in animalObj) {
     var searchTerm = animalObj[animal];
   }
 
   $('<p/>', { html: "It seems you're only about " +Math.round(distance*10)/10+" miles from the nearest reported animal decapitation.  <br />That animal was a " + searchTerm.toLowerCase()+".  <br />Doesn't that make you hungry, baby?  Yeah?  Yeah."}).appendTo("#textHolder");
-  var $input = $('<input type="button" id="restaurantbutton" value="Yeahhhh."/>');
+  var $input = $('<input type="button" id="restaurantbutton" value="Yeahhhh..."/>');
   $input.appendTo("#buttonHolder");
 
   $("#buttonHolder").click(function(){
