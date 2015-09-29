@@ -20,7 +20,7 @@ $(document).ready(function() {
 
 var dataUrl = 'https://raw.githubusercontent.com/UselessPress/decapitated-animals-data/master/animals.json'
 var pointList = [];
-var locations =[];
+var locations = [];
 
 
 
@@ -31,16 +31,14 @@ $("#okbutton").click(function(){
       locatePush(response);
     });
 
-
-
-
   $("#goat").removeClass("blurclass", "slow");
   $("#goat, .fadetext").fadeOut(3000);
   });
 });
 
 
-// Locate user, fill locations object
+
+// Locate user, fill locations object, run NearestAnimal
 function locatePush(myObject) {
   for (f = 0; f < myObject.length; f++){
     locations.push({"animal":myObject[f].animal,"lat":myObject[f].lat,"lng":myObject[f].lng});
@@ -56,21 +54,6 @@ function locatePush(myObject) {
       NearestAnimal(userLat,userLon);
   });
 }
-
-
-
-// Marker for user, find nearest animal report
-function UserLocation(position){
-  userLat = position.coords.latitude;
-  userLon = position.coords.longitude;
-  
-  var userPoints = new L.LatLng(  userLat,userLon);
-  pointList.push(userPoints);
-
-  var marker = L.marker([userLat,userLon]).addTo(map);
-  NearestAnimal(userLat,userLon);
-}
-
 
 
 // Math stuff easy peasy
@@ -104,12 +87,10 @@ function NearestAnimal(latitude,longitude){
       mindif=dif;
     } 
   }
-  console.log("distance: " + mindif + "lat/lon: " + closelat + " " + closelon + ", animal: " + closeAnimal);
+  //console.log("distance: " + mindif + "lat/lon: " + closelat + " " + closelon + ", animal: " + closeAnimal);
 
 
-  // Function to draw line, reframe map 
-  
-  //return closelat,closelon,mindif,closeAnimal,latitude,longitude;
+  // Function to draw line, reframe map, generate text 
   mapFunctions(closelat,closelon);
   textResult(mindif,closeAnimal,latitude,longitude);
 }
@@ -124,17 +105,14 @@ function mapFunctions(animalLat,animalLon){
   });
   polyline.addTo(map);
   map.fitBounds(polyline.getBounds());
-  console.log("making it!");
 }
 
 
 
 function textResult(distance,animal,lat,lon) {
-  //var searchTerm = animalParse(animal);
   if (animal in animalObj) {
     var searchTerm = animalObj[animal];
   }
-
 
   $('<p/>', { html: "It seems you're only about " +Math.round(distance*10)/10+" miles from the nearest reported animal decapitation.  <br />That animal was a " + searchTerm.toLowerCase()+".  <br />Doesn't that make you hungry, baby?  Yeah?  Yeah."}).appendTo("#textHolder");
   var $input = $('<input type="button" id="restaurantbutton" value="Yeahhhh."/>');
@@ -144,17 +122,7 @@ function textResult(distance,animal,lat,lon) {
     search = searchTerm.replace(/ /g,'%20');
     var searchURL = "https://www.seamless.com/search?orderMethod=delivery&locationMode=DELIVERY&facetSet=umami&pageSize=20&queryText="+search+"&latitude="+lat+"&longitude="+lon+"&facet=open_now:true&countOmittingTimes";
     window.location.replace(searchURL);
-    console.log("clicked");
   });
-}
-
-function createFrame(lat,lon,search){
-  search = search.replace(/ /g,'%20');
-  var searchURL = "https://www.seamless.com/search?orderMethod=delivery&locationMode=DELIVERY&facetSet=umami&pageSize=20&queryText="+search+"&latitude="+lat+"&longitude="+lon+"&facet=open_now:true&countOmittingTimes";
-  //window.location.replace(searchURL);
-  console.log("clicked");
-  
-  
 }
 
 
@@ -186,15 +154,6 @@ animalObj={
 'Chicken':'Chicken',
 'Birds':'Bird'
 }
-
-function animalParse(animal){
-  if (animal in animalObj){
-    return animalObj[animal];
-  }
-}
-
-
-
 
 
 /////  I DON'T THINK I NEED THESE ANYMORE   /////
