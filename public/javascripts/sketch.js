@@ -8,7 +8,7 @@
     popupAnchor: [5,5]
   });
 
-  L.tileLayer('https://a.tiles.mapbox.com/v4/johnfarrell.nbb26kdn/{z}/{x}/{y}.png?access_token={accessToken}', {
+  L.tileLayer('https://a.tiles.mapbox.com/v4/your.mapbox.project.id/{z}/{x}/{y}.png?access_token={accessToken}', {
       attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
       maxZoom: 15,
       id: 'your.mapbox.project.id',
