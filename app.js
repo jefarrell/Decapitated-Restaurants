@@ -3,11 +3,12 @@ var path = require('path');
 var routes = require('./routes/index');
 var app = express();
 
+
+
 app.use(express.static(path.join(__dirname, '/views')));
 app.use(express.static(path.join(__dirname, '/public')));
 
 app.use('/', routes);
-
 
 
 var server = app.listen(3000, function () {
@@ -21,5 +22,9 @@ app.get('/', function (req, res) {
   res.sendFile(__dirname + '/views/index.html')
 });
 
+app.get('/auth', function(req,res) {
+	res.send(JSON.stringify({"account" : "your.account",
+		"access" : "your.access.token"}));
+});
 
 module.exports = app;

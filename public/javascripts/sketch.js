@@ -1,43 +1,43 @@
+var map = L.map('map',{ zoomControl:false}).setView([40.7236922,-73.9889142], 10);
+var dot = L.icon({
+  iconUrl: 'images/dot.png',
+  iconSize: [8,8],
+  iconAnchor: [0,0],
+  popupAnchor: [5,5]
+});
 
-
-  var map = L.map('map',{ zoomControl:false}).setView([40.7236922,-73.9889142], 10);
-  var dot = L.icon({
-    iconUrl: '../assets/dot.png',
-    iconSize: [8,8],
-    iconAnchor: [0,0],
-    popupAnchor: [5,5]
+$(document).ready(function() {
+  $.get('/auth', function (temp) {
+    var data = $.parseJSON(temp);
+    L.tileLayer('https://a.tiles.mapbox.com/v4/'+data.account+'/{z}/{x}/{y}.png?access_token='+data.access+'', {
+        attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+        maxZoom: 15,
+        id: data.account,
+        accessToken: data.access
+    }).addTo(map);
   });
+});
 
-  L.tileLayer('https://a.tiles.mapbox.com/v4/your.mapbox.project.id/{z}/{x}/{y}.png?access_token={accessToken}', {
-      attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
-      maxZoom: 15,
-      id: 'your.mapbox.project.id',
-      accessToken: 'your.mapbox.public.access.token'
-  }).addTo(map);
+var dataUrl = 'https://raw.githubusercontent.com/UselessPress/decapitated-animals-data/master/animals.json'
+var pointList = [];
+var locations =[];
 
 
 
-  var dataUrl = 'https://raw.githubusercontent.com/UselessPress/decapitated-animals-data/master/animals.json'
-  var pointList = [];
-  var locations =[];
-
-
-
-  // Initial button click - hide and run
-  $("#okbutton").click(function(){
-    $(".fadetext1").fadeOut(1000, function(){
-
-      var data = $.getJSON(dataUrl).done(function(response){  
-        locatePush(response);
-      });
-
-
-
-
-    $("#goat").removeClass("blurclass", "slow");
-    $("#goat, .fadetext").fadeOut(3000);
+// Initial button click - hide and run
+$("#okbutton").click(function(){
+  $(".fadetext1").fadeOut(1000, function(){
+    var data = $.getJSON(dataUrl).done(function(response){  
+      locatePush(response);
     });
+
+
+
+
+  $("#goat").removeClass("blurclass", "slow");
+  $("#goat, .fadetext").fadeOut(3000);
   });
+});
 
 
 // Locate user, fill locations object
@@ -45,24 +45,15 @@ function locatePush(myObject) {
   for (f = 0; f < myObject.length; f++){
     locations.push({"animal":myObject[f].animal,"lat":myObject[f].lat,"lng":myObject[f].lng});
   }
-  //navigator.geolocation.getCurrentPosition(UserLocation);
   navigator.geolocation.getCurrentPosition(function(position){
       userLat = position.coords.latitude;
       userLon = position.coords.longitude;
   
       var userPoints = new L.LatLng(userLat,userLon);
       pointList.push(userPoints);
-
       var marker = L.marker([userLat,userLon]).addTo(map);
-      
-  //     var p = new Promise(function(resolve,reject){
-  //       console.log("HELP ME");
-  //       NearestAnimal(userLat,userLon);
-  //     });
-  //     p.then(mapFunctions(closelat,closelon))
-  //     .then(textResult(mindif,closeAnimal,latitude,longitude));
-  // });
-    NearestAnimal(userLat,userLon);
+
+      NearestAnimal(userLat,userLon);
   });
 }
 
