@@ -1,7 +1,7 @@
 # Decapitated-Restaurants
 Restaurant recommendations based on decapitated animals
 ***
-  
+![website screenshot](http://www.jefarrell.com/files/decapRest.png)
   
 
 Don't you hate trying to decide where to order delivery from?  
